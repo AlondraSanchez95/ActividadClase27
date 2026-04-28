@@ -25,3 +25,12 @@ Proponiendo una solución DevOps, podríamos observar que:
 •	También para fomentar la colaboración y para tener un mejor control de versiones una solución viable sería el uso de GitHub. Así el tema de mantener el código actualizado seria algo mas sencillo a que cada uno realice su propia versión. Ayudaría a verificar el código antes de mandarlo a los contenedores con su sistema GitHub Actions.
 •	Con el tema de los servidores y el monitoreo la propuesta seria el uso de AWS EC2 combinado a los contenedores que ya mencione para servidores personalizados y el uso de sistemas de monitoreo centralizado como AWS CloudWatch, que permite automatizar temas como la ampliación del recursos en ciertas circunstancias, como cuando el uso del recurso supere una métrica ya definida, o alarmas para verificar picos de desempeño. 
 
+# Explicación Docker:
+En el dockerfile tengo lo que vendría siendo un Multi-stage build para una imagen ligera y con bastante seguridad. Construyo un contenedor temporal con un tipo imagen alpine y mete un código fuente desde una carpeta src que se proporciona, que es donde casi siempre se guardan los códigos frontend como HTML, CSS y JS. Después tomo los archivos de la etapa de construcción y los mando a producción. Se toma como base un servidor nginx y se expone por el puerto 80.
+En el compose ahora si hago todo el despliegue de los contenedores por servicio, uno para el Frontend donde le digo que haga uso del dockerfile ya creado y que depende del backend. El backend es donde primero descargo una imagen tipo node/alpine directamente, y le digo que todo el despliegue viene de la carpeta /app y que se mantenga actualizado, tambien especifico la ruta a la base de datos. Después creo un servicio que conecta con la base de datos con una imagen mongo directa. Al final mis datos se mantienen en el disco duro que Docker reserva por si se llega a apagar el contenedor o a borrar.
+El flujo seria así: 
+1.	Entrada del usuario: llega al contenedor temporal Nginx y sirve lo que sea que se configure como frontend
+2.	Petición de datos: el código frontend pide los datos al backend
+3.	Consulta a base de datos: el backend procesa la lógica y pide los datos a la base de datos
+4.	Respuesta: La base de datos envía la respuesta, node los formatea y nginx los muestra.
+
