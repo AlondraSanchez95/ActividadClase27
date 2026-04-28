@@ -1,0 +1,19 @@
+==========================================
+Reporte de recuros - Reto DevOps
+Fecha: 2026-04-28 00:10:51
+==========================================
+
+INSTANCIAS EC2
+------------------------------------------
+[*] miInstanciaIlovu (i-0adc9a5d8cbac4ba1)
+Estado: running | Tipo: t2.micro
+
+Resumen EC2: Prendidas (1) | Apagadas (0)
+
+BUCKETS S3
+------------------------------------------
+[+] Bucket: alondra-reportes-19972411
+(Bucket vacío)
+
+==========================================
+Fin del reporte
