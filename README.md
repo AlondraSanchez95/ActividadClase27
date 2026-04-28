@@ -57,3 +57,11 @@ Tenemos que tener extrema vigilancia
 •	Herramientas: AWS CloudWatch.
 •	Acción: Se vigilan métricas como el uso de CPU, RAM y errores 500. Si el contenedor de "Storage" se queda sin espacio, el sistema lanza una alerta automática a tu correo.
 
+# Monitoreo:
+Yo monitorearía tres cosas principales: uso del CPU de la instancia, espacio en los contenedores y errores 500 con la conexión de servidores.
+Configuraría alertas para situación donde, por ejemplo, el CPU alcance una métrica de 75%, por lo cual desplegaría otra instancia a la cual redirigir el tráfico. Si llegan a ver errores con la aplicación mandaría alertas inmediatas para poder verificar en donde se esta presentando el problema y poder resolverlo a la brevedad. Y si el espacio en los contenedores llega a superarse empezaría a mandar datos a un bucket S3 u otro tipo de almacenamiento. También si el tiempo de respuesta empieza a crecer el equipo tendría que verificar la conexión frontend – backend, ósea la API, o si es mas profundo el asunto otros errores como el servidor o la base de datos.
+
+# Conclusion
+Creo que la propuesta podría ayudar, por lo menos, en dar una base solida en la cual apoyarse para poder empezar a cambiar de filosofía a la hora de desarrollar, mantener y monitorear la aplicación. La parte más difícil seria, principalmente, cambiar la mentalidad y los hábitos a la hora de realizar cambios en el código y poder también configurar las partes técnicas detrás de la automatización, contenedores y monitoreo. Pero al final, considero, que podría ser muy beneficioso para la empresa, pues con estos métodos, al final se estaría dando una mejor versión de la aplicación al cliente, manteniéndose a la vanguardia y estando al tanto de las nuevas tecnologías.
+________________________________________
+
