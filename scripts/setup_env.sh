@@ -25,9 +25,7 @@ instalaciones "git" "yum install git -y"
 
 instalaciones "vim" "yum install vim -y"
 
-instalaciones "docker" "yum install docker.io -y"
-
-instalaciones "docker-compose" "yum install docker-compose"
+instalaciones "docker" "yum install docker -y"
 
 instalaciones "python3" "yum install python3"
 
