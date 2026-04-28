@@ -1,0 +1,30 @@
+services:
+  #Frontend de la aplicacion/servicio
+  frontend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  #Backend de la aplicacio/servicio
+  backend:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    #environment:
+    #- MONGO_URL=mongodb://storage:27017/netflix (Esto es puro ejemplo)
+    command: npm run dev
+
+  storage:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+
+volumes:
+  db_data:
