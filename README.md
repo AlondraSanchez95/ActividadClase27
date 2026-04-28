@@ -34,3 +34,26 @@ El flujo seria así:
 3.	Consulta a base de datos: el backend procesa la lógica y pide los datos a la base de datos
 4.	Respuesta: La base de datos envía la respuesta, node los formatea y nginx los muestra.
 ¿Porque serviría para el caso? Solucionaría el tema de la incompatibilidad pues cada contenedor podria configurarse con las herramientas que cada desarrollador necesite, tambien ayudaría mucho con las pruebas automatizadas y al despliegue pues cada contenedor tendría su propio servicio y así no seria necesario probar toda la aplicación cada vez que alguien hace un cambio en el código. Tambien es bueno en aislar los fallos por servicio, previniendo caídas completas y malas experiencias al usuario.
+
+# Pipeline CI/CD:
+Source: GitHub
+El proceso inicia con un git push a la rama main.
+•	Herramientas: GitHub Actions o GitLab CI.
+•	Acción: El servidor de CI detecta el cambio y descarga el código. Se activan reglas de protección de rama (nadie sube código sin que pase el pipeline).
+Build: Docker Build.
+Aquí es donde entra el Dockerfile. Se crean las imágenes para el Frontend, el Backend y la base de Datos
+•	Herramientas: Docker Engine, GitHub Packages o AWS ECR (para guardar las imágenes).
+•	Acción: Se ejecutan los comandos docker build. Se generan "etiquetas" (tags) únicas para cada version, lo que permite hacer un rollback rápido si algo falla después.
+Test: Pruebas.
+Antes de subir la imagen a la nube, tenemos que verificar si funciona.
+•	Herramientas: Jest (para Node.js), Mocha o Cypress (para el frontend).
+•	Acción: Se levantan contenedores temporales. Se ejecutan pruebas unitarias (lógica del código) y de integración (¿el backend puede conectar con el storage?). Si una prueba falla, el pipeline se detiene.
+Deploy: Producción.
+Si todo está bien, la nueva imagen se envía al servidor real.
+•	Herramientas: AWS ECS, Render o Kubernetes.
+•	Acción: Se actualiza el servicio.
+Monitoreo: 
+Tenemos que tener extrema vigilancia
+•	Herramientas: AWS CloudWatch.
+•	Acción: Se vigilan métricas como el uso de CPU, RAM y errores 500. Si el contenedor de "Storage" se queda sin espacio, el sistema lanza una alerta automática a tu correo.
+
