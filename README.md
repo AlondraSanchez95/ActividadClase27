@@ -33,4 +33,4 @@ El flujo seria así:
 2.	Petición de datos: el código frontend pide los datos al backend
 3.	Consulta a base de datos: el backend procesa la lógica y pide los datos a la base de datos
 4.	Respuesta: La base de datos envía la respuesta, node los formatea y nginx los muestra.
-
+¿Porque serviría para el caso? Solucionaría el tema de la incompatibilidad pues cada contenedor podria configurarse con las herramientas que cada desarrollador necesite, tambien ayudaría mucho con las pruebas automatizadas y al despliegue pues cada contenedor tendría su propio servicio y así no seria necesario probar toda la aplicación cada vez que alguien hace un cambio en el código. Tambien es bueno en aislar los fallos por servicio, previniendo caídas completas y malas experiencias al usuario.
